@@ -19,7 +19,6 @@ export default function HomePage() {
     <main style={{ padding: 20 }}>
       <h1>NFL Prediction App</h1>
 
-      {/* Basic text inputs */}
       <input
         placeholder="Home Team"
         value={home}
@@ -31,7 +30,6 @@ export default function HomePage() {
         onChange={(e) => setAway(e.target.value)}
       />
 
-      {/* Optional custom UI bits */}
       <label>
         <span>Kickoff (ISO)</span>
         <input
@@ -47,23 +45,4 @@ export default function HomePage() {
       )}
     </main>
   );
-}  );
-  <TeamSelect label="Away Team" value={away} onChange={setAway} />
-          <label className="block text-sm sm:col-span-2">
-            <span className="text-neutral-400">Kickoff (ISO)</span>
-            <input value={kickoff} onChange={e=>setKickoff(e.target.value)} className="mt-1 w-full bg-neutral-900 border border-neutral-800 rounded-xl p-2" />
-          </label>
-          <button className="sm:col-span-2 justify-self-start bg-white text-black rounded-xl px-4 py-2"
-            onClick={async ()=>{ const r = await postCustom({ team_home:home, team_away:away, kickoff_iso:kickoff }); setPred(r); }}>
-            Predict
-          </button>
-        </div>
-        {pred && (
-          <div className="mt-4">
-            <MatchupCard game={pred} />
-          </div>
-        )}
-      </section>
-    </div>
-  )
 }
