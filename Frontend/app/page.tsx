@@ -4,6 +4,7 @@ import { useState } from "react";
 export default function HomePage() {
   const [home, setHome] = useState("");
   const [away, setAway] = useState("");
+  const [kickoff, setKickoff] = useState("");
   const [result, setResult] = useState<any>(null);
 
   async function handlePredict() {
@@ -18,6 +19,7 @@ export default function HomePage() {
     <main style={{ padding: 20 }}>
       <h1>NFL Prediction App</h1>
 
+      {/* Basic text inputs */}
       <input
         placeholder="Home Team"
         value={home}
@@ -28,6 +30,16 @@ export default function HomePage() {
         value={away}
         onChange={(e) => setAway(e.target.value)}
       />
+
+      {/* Optional custom UI bits */}
+      <label>
+        <span>Kickoff (ISO)</span>
+        <input
+          value={kickoff}
+          onChange={(e) => setKickoff(e.target.value)}
+        />
+      </label>
+
       <button onClick={handlePredict}>Predict</button>
 
       {result && (
@@ -35,6 +47,7 @@ export default function HomePage() {
       )}
     </main>
   );
+}  );
   <TeamSelect label="Away Team" value={away} onChange={setAway} />
           <label className="block text-sm sm:col-span-2">
             <span className="text-neutral-400">Kickoff (ISO)</span>
