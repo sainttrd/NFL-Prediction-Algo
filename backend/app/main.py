@@ -21,7 +21,8 @@ async def startup_event():
 
 @app.get("/health")
 def health():
-    return {"ok": True, "model_version": model_version()}            'team_home': row['home_team'],
+    return {"ok": True, "model_version": model_version()}            
+            'team_home': row['home_team'],
             'team_away': row['away_team'],
             'kickoff_iso': row['gameday_iso'],
             'home_win_prob': p_home,
