@@ -1,40 +1,41 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { getWeek, postCustom } from './api/backend'
-import MatchupCard from './(components)/MatchupCard'
-import TeamSelect from './(components)/TeamSelect'
-import WeekPicker from './(components)/WeekPicker'
+"use client";
+import { useState } from "react";
 
-export default function Page(){
-  const now = new Date()
-  const [season] = useState(now.getFullYear())
-  const [week, setWeek] = useState(1)
-  const [games, setGames] = useState<any[]>([])
-  const [home, setHome] = useState('NE')
-  const [away, setAway] = useState('NYJ')
-  const [kickoff, setKickoff] = useState(new Date().toISOString())
-  const [pred, setPred] = useState<any | null>(null)
+export default function HomePage() {
+  const [home, setHome] = useState("");
+  const [away, setAway] = useState("");
+  const [result, setResult] = useState<any>(null);
 
-  useEffect(()=>{
-    getWeek(season, week).then(setGames).catch(()=>setGames([]))
-  }, [season, week])
+  async function handlePredict() {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/predict?home=${home}&away=${away}`
+    );
+    const data = await res.json();
+    setResult(data);
+  }
 
   return (
-    <div className="space-y-8">
-      <header className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">NFL Predictor</h1>
-        <WeekPicker week={week} setWeek={setWeek} />
-      </header>
+    <main style={{ padding: 20 }}>
+      <h1>NFL Prediction App</h1>
 
-      <section className="grid gap-4 sm:grid-cols-2">
-        {games.map((g, i)=> <MatchupCard key={i} game={g} />)}
-      </section>
+      <input
+        placeholder="Home Team"
+        value={home}
+        onChange={(e) => setHome(e.target.value)}
+      />
+      <input
+        placeholder="Away Team"
+        value={away}
+        onChange={(e) => setAway(e.target.value)}
+      />
+      <button onClick={handlePredict}>Predict</button>
 
-      <section className="rounded-2xl p-4 bg-neutral-900 border border-neutral-800">
-        <h2 className="text-xl font-semibold">Custom Matchup</h2>
-        <div className="mt-3 grid sm:grid-cols-2 gap-4">
-          <TeamSelect label="Home Team" value={home} onChange={setHome} />
-          <TeamSelect label="Away Team" value={away} onChange={setAway} />
+      {result && (
+        <pre style={{ marginTop: 20 }}>{JSON.stringify(result, null, 2)}</pre>
+      )}
+    </main>
+  );
+}          <TeamSelect label="Away Team" value={away} onChange={setAway} />
           <label className="block text-sm sm:col-span-2">
             <span className="text-neutral-400">Kickoff (ISO)</span>
             <input value={kickoff} onChange={e=>setKickoff(e.target.value)} className="mt-1 w-full bg-neutral-900 border border-neutral-800 rounded-xl p-2" />
