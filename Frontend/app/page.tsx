@@ -35,7 +35,7 @@ export default function HomePage() {
       )}
     </main>
   );
-}          <TeamSelect label="Away Team" value={away} onChange={setAway} />
+  <TeamSelect label="Away Team" value={away} onChange={setAway} />
           <label className="block text-sm sm:col-span-2">
             <span className="text-neutral-400">Kickoff (ISO)</span>
             <input value={kickoff} onChange={e=>setKickoff(e.target.value)} className="mt-1 w-full bg-neutral-900 border border-neutral-800 rounded-xl p-2" />
