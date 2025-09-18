@@ -21,7 +21,7 @@ async def startup_event():
 
 @app.get("/health")
 def health():
-    return {"ok": True, "model_version": model_version()}            
+    return {"ok": True, "model_version": model_version(),      
             'team_home': row['home_team'],
             'team_away': row['away_team'],
             'kickoff_iso': row['gameday_iso'],
@@ -29,7 +29,7 @@ def health():
             'away_win_prob': 1-p_home,
             'model_version': model_version(),
             'features_used': feats
-        })
+        }
     return out
 
 @app.post("/predict/custom", response_model=MatchupPrediction)
